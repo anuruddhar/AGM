@@ -1,0 +1,26 @@
+<h1>Angular Google Maps (AGM) Demo</h1>
+
+<agm-map style="height:100%; width:100%" [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="false"
+  (mapClick)="mapClicked($event)">
+
+  <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)" [latitude]="m.longitude"
+    [longitude]="m.longitude" [label]="m.label" [markerDraggable]="m.draggable" (dragEnd)="markerDragEnd(m, $event)">
+
+    <agm-info-window>
+      <strong>InfoWindow content</strong>
+    </agm-info-window>
+
+  </agm-marker>
+
+  <agm-circle [latitude]="longitude + 0.3" [longitude]="longitude" [radius]="5000" [fillColor]="'red'"
+    [circleDraggable]="true" [editable]="true">
+  </agm-circle>
+
+  <ng-container>
+    <agm-polyline *ngFor="let polyline of polylines;let i = index;" [strokeColor]="polyline.color">
+      <agm-polyline-point *ngFor="let point of polyline.path" [latitude]="point.latitude" [longitude]="point.longitude">
+      </agm-polyline-point>
+    </agm-polyline>
+  </ng-container>
+
+</agm-map>
